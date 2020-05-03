@@ -1,19 +1,16 @@
 {
-  "name": "jam-bot-express",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "jam-bot",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yukiorita1117/jam-bot-express.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/yukiorita1117/jam-bot-express/issues"
-  },
-  "homepage": "https://github.com/yukiorita1117/jam-bot-express#readme"
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1"
+  }
 }
