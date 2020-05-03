@@ -1,0 +1,19 @@
+{
+  "name": "jam-bot-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yukiorita1117/jam-bot-express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yukiorita1117/jam-bot-express/issues"
+  },
+  "homepage": "https://github.com/yukiorita1117/jam-bot-express#readme"
+}
