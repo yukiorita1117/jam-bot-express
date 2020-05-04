@@ -40,7 +40,6 @@ app.listen(8080);
 
 // 今回は root を使いたいのでコメントアウト
 // app.use('/', indexRouter);
-// app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
