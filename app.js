@@ -42,11 +42,16 @@ app.post("/", function (req, res) {
   if (!req.body.event.bot_id && [...req.body.event.text].length >= 100) {
     console.log("async awitの処理がないからか？？");
     // chat.postMessageの実行
-    web.chat.postMessage({
+    const payload = web.chat.postMessage({
+      "content-type": "application/json",
+      Authorization:
+        "Bearer xoxb-922333071955-1124566819648-j9cSkK8rZlRGWcRyBY9RajWh",
       as_user: true,
       channel: req.body.event.channel,
       text: `<@${req.body.event.user}> めっちゃ早口で言ってそう`,
     });
+
+    return payload;
   }
 });
 
