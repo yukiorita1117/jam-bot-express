@@ -22,8 +22,10 @@ app.use(express.static(path.join(__dirname, "public")));
 const bodyParser = require("body-parser");
 
 // urlencodedParserの導入
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
+// const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+const token = process.env.SLACK_TOKEN;
+const web = new WebClient(token);
 app.use(bodyParser.json());
 
 // slack bot
