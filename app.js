@@ -24,13 +24,12 @@ const bodyParser = require("body-parser");
 // urlencodedParserの導入
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+app.use(bodyParser.json());
+
 // slack bot
-app.post("/", urlencodedParser, function (req, res) {
-  // 3秒以内にレスポンスを返さないとslackbotがエラーメッセージを投稿してしまう為挿入
-  res.status(200).end();
-  // req.body.payloadをパースする
-  const payload = JSON.parse(req.body.payload);
-  console.log(payload);
+app.post("/", function (req, res) {
+  res.setHeader("Content-Type", "text/plain");
+  res.send(req.body.challenge);
 });
 
 app.listen(8080);
