@@ -40,6 +40,7 @@ app.post("/", function (req, res) {
   console.log(req.body.event);
   // botからの発言でなく、100文字以上のmessageイベントにリプライ
   if (!req.body.event.bot_id && [...req.body.event.text].length >= 100) {
+    console.log("async awitの処理がないからか？？");
     // chat.postMessageの実行
     web.chat.postMessage({
       as_user: true,
