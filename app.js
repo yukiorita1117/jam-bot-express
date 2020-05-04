@@ -24,7 +24,7 @@ const bodyParser = require("body-parser");
 // urlencodedParserの導入
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-//
+// slack bot
 app.post("/", urlencodedParser, function (req, res) {
   // 3秒以内にレスポンスを返さないとslackbotがエラーメッセージを投稿してしまう為挿入
   res.status(200).end();
