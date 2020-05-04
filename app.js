@@ -49,7 +49,7 @@ app.post("/", function (req, res) {
   }
 });
 
-app.listen(8080);
+// app.listen(8080);
 
 // -------------------------------------------------------------------  //
 
@@ -71,5 +71,9 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+// portを指定する
+const port = process.env.PORT || 8080;
+app.listen(port, () => console.log(`Server running on port ${port}`));
 
 module.exports = app;
