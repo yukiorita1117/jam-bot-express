@@ -38,6 +38,9 @@ app.post("/", function (req, res) {
   // res.setHeader("Content-Type", "text/plain");
   // res.send(req.body.challenge);
 
+  // 3秒以内にレスポンスを返さないとslackbotがエラーメッセージを投稿してしまう為挿入
+  res.status(200).end();
+
   console.log(req.body.event);
   // 100文字以上のmessageイベントにリプライ
   if (!req.body.event.bot_id && [...req.body.event.text].length >= 100) {
