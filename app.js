@@ -19,6 +19,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// dotenv 確認
+// require("dotenv").config();
+const env = process.env;
+// console.log(env.SLACK_TOKEN);
+
 // bodyParser 追加
 const bodyParser = require("body-parser");
 
@@ -26,7 +31,7 @@ const bodyParser = require("body-parser");
 // const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // TODO 環境変数にして隠蔽する。
-// const token = process.env.SLACK_TOKEN;
+const token = env.SLACK_TOKEN;
 const web = new WebClient(token);
 app.use(bodyParser.json());
 
@@ -39,13 +44,23 @@ app.post("/", function (req, res) {
   // res.send(req.body.challenge);
 
   console.log(req.body.event);
-  // botからの発言でなく、100文字以上のmessageイベントにリプライ
+  // 100文字以上のmessageイベントにリプライ
   if (!req.body.event.bot_id && [...req.body.event.text].length >= 100) {
     // chat.postMessageの実行
     web.chat.postMessage({
       as_user: true,
       channel: req.body.event.channel,
       text: `<@${req.body.event.user}> めっちゃ早口で言ってそう`,
+    });
+  }
+  console.log("入力値は？？", req.body.event.text);
+
+  // Good Morning Event
+  if (!req.body.event.bot_id && req.body.event.text.indexOf("おはよう") != -1) {
+    web.chat.postMessage({
+      as_user: true,
+      channel: req.body.event.channel,
+      text: `<@${req.body.event.user}> おはようございます。今日も一日頑張ってくださいね!`,
     });
   }
 });
