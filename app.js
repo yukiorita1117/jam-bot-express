@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 
 // slack bot middleware
 app.post("/", function (req, res) {
-  // Slackは"Request URL"に設定したURLが正当なものかを判定するため、Request URLに指定した内容にPOSTリクエストを送る。それに対し、受け取ったデータから"Challenge"を抜き出して送信する必要がある。
+  // Slackは"Request URL"に設定したURLが正当なものかを判定するため、Request URLに指定した内容にPOSTリクエストを送る。それに対し、受け取ったデータから "Challenge" を抜き出して送信する必要がある。
   // res.setHeader("Content-Type", "text/plain");
   // res.send(req.body.challenge);
 
@@ -51,6 +51,8 @@ app.post("/", function (req, res) {
       text: `<@${req.body.event.user}> めっちゃ早口で言ってそう`,
     });
   }
+
+  // TODO 入力値のログ 実装後に削除する
   console.log("入力値は？？", req.body.event.text);
 
   // Good Morning Event
@@ -58,12 +60,20 @@ app.post("/", function (req, res) {
     web.chat.postMessage({
       as_user: true,
       channel: req.body.event.channel,
-      text: `<@${req.body.event.user}> おはようございます。今日も一日頑張ってくださいね!`,
+      text: `<@${req.body.event.user}> おはようございます。今日も一日頑張ってくださいね！`,
+    });
+  }
+
+  // Image Post Event
+  if (!req.body.event.bot_id && req.body.event.text.indexOf("今日も") != -1) {
+    web.chat.postMessage({
+      as_user: true,
+      channel: req.body.event.channel,
+      // image path かいてみる
+      text: `<@${req.body.event.user}> ここにpath描いてみる`,
     });
   }
 });
-
-// app.listen(8080);
 
 // -------------------------------------------------------------------  //
 
