@@ -27,9 +27,6 @@ const env = process.env;
 // bodyParser 追加
 const bodyParser = require("body-parser");
 
-// urlencodedParserの導入
-// const urlencodedParser = bodyParser.urlencoded({ extended: false });
-
 // TODO 環境変数にして隠蔽する。
 const token = env.SLACK_TOKEN;
 const web = new WebClient(token);
