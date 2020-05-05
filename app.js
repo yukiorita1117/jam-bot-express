@@ -34,9 +34,7 @@ app.use(bodyParser.json());
 
 // slack bot
 app.post("/", function (req, res) {
-  // Slackは"Request URL"に設定したURLが正当なものかを判定するため、
-  // Request URLに指定した内容にPOSTリクエストを送る。
-  // それに対し、受け取ったデータから"Challenge"を抜き出して送信する必要がある。
+  // Slackは"Request URL"に設定したURLが正当なものかを判定するため、Request URLに指定した内容にPOSTリクエストを送る。それに対し、受け取ったデータから"Challenge"を抜き出して送信する必要がある。
   // res.setHeader("Content-Type", "text/plain");
   // res.send(req.body.challenge);
 
