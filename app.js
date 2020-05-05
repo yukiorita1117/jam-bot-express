@@ -25,7 +25,8 @@ const bodyParser = require("body-parser");
 // urlencodedParserの導入
 // const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-const token = process.env.SLACK_TOKEN;
+// TODO 環境変数にして隠蔽する。
+// const token = process.env.SLACK_TOKEN;
 const web = new WebClient(token);
 app.use(bodyParser.json());
 
@@ -40,18 +41,12 @@ app.post("/", function (req, res) {
   console.log(req.body.event);
   // botからの発言でなく、100文字以上のmessageイベントにリプライ
   if (!req.body.event.bot_id && [...req.body.event.text].length >= 100) {
-    console.log("POSTリクエストをちゃんとした形式で書き直す");
     // chat.postMessageの実行
-    const payload = web.chat.postMessage({
-      "content-type": "application/json",
-      Authorization:
-        "Bearer xoxb-922333071955-1124566819648-j9cSkK8rZlRGWcRyBY9RajWh",
+    web.chat.postMessage({
       as_user: true,
       channel: req.body.event.channel,
       text: `<@${req.body.event.user}> めっちゃ早口で言ってそう`,
     });
-
-    return payload;
   }
 });
 
