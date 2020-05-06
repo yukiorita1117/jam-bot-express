@@ -84,7 +84,7 @@ app.post("/", function (req, res) {
     }
   }
 
-  // Image Post Event
+  // TODO Image Post Event
   if (!req.body.event.bot_id && req.body.event.text.indexOf("今日も") != -1) {
     web.chat.postMessage({
       as_user: true,
