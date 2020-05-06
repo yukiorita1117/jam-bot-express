@@ -32,9 +32,12 @@ const token = env.SLACK_TOKEN;
 const web = new WebClient(token);
 app.use(bodyParser.json());
 
+let messageCounter = 0;
+
 // slack bot middleware
 app.post("/", function (req, res) {
   // Slackは"Request URL"に設定したURLが正当なものかを判定するため、Request URLに指定した内容にPOSTリクエストを送る。それに対し、受け取ったデータから "Challenge" を抜き出して送信する必要がある。
+  // TASK ngrokでurlを再発行するたびにここはコメントアウト外して実行すること。
   // res.setHeader("Content-Type", "text/plain");
   // res.send(req.body.challenge);
 
@@ -44,6 +47,7 @@ app.post("/", function (req, res) {
   console.log(req.body.event);
   // 100文字以上のmessageイベントにリプライ
   if (!req.body.event.bot_id && [...req.body.event.text].length >= 100) {
+    messageCounter = 1;
     // chat.postMessageの実行
     web.chat.postMessage({
       as_user: true,
@@ -57,11 +61,27 @@ app.post("/", function (req, res) {
 
   // Good Morning Event
   if (!req.body.event.bot_id && req.body.event.text.indexOf("おはよう") != -1) {
+    messageCounter = 1;
     web.chat.postMessage({
       as_user: true,
       channel: req.body.event.channel,
       text: `<@${req.body.event.user}> おはようございます。今日も一日頑張ってくださいね！`,
     });
+  }
+
+  // reply question message
+  if (!req.body.event.bot_id) {
+    if (
+      req.body.event.text.indexOf("?") != -1 ||
+      req.body.event.text.indexOf("？") != -1
+    ) {
+      messageCounter = 1;
+      web.chat.postMessage({
+        as_user: true,
+        channel: req.body.event.channel,
+        text: `<@${req.body.event.user}> そんなのもわからないんですか？少しは自分で考えてください。`,
+      });
+    }
   }
 
   // Image Post Event
@@ -73,6 +93,22 @@ app.post("/", function (req, res) {
       text: `<@${req.body.event.user}> ここにpath描いてみる`,
     });
   }
+
+  // reply other
+  if (
+    !req.body.event.bot_id &&
+    req.body.event.text.length > 0 &&
+    messageCounter === 0
+  ) {
+    web.chat.postMessage({
+      as_user: true,
+      channel: req.body.event.channel,
+      text: `<@${req.body.event.user}> すみません、不要不急なことで話しかけられるのは困ります。。`,
+    });
+  }
+
+  // reset
+  messageCounter = 0;
 });
 
 // -------------------------------------------------------------------  //
