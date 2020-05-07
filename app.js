@@ -85,12 +85,13 @@ app.post("/", function (req, res) {
   }
 
   // TODO Image Post Event
+  // 違うEvent使わないとダメかも。
   if (!req.body.event.bot_id && req.body.event.text.indexOf("今日も") != -1) {
     web.chat.postMessage({
       as_user: true,
       channel: req.body.event.channel,
       // image path かいてみる
-      text: `<@${req.body.event.user}> ここにpath描いてみる`,
+      text: `<@${req.body.event.user}> ここにpathかいてみる`,
     });
   }
 
