@@ -69,6 +69,16 @@ app.post("/", function (req, res) {
     });
   }
 
+  // goodby message
+  if (!req.body.event.bot_id && req.body.event.text.indexOf("勤務終了") != -1) {
+    messageCounter = 1;
+    web.chat.postMessage({
+      as_user: true,
+      channel: req.body.event.channel,
+      text: `<@${req.body.event.user}> お疲れ様でした。ゆっくり休んでくださいね！`,
+    });
+  }
+
   // reply question message
   if (!req.body.event.bot_id) {
     if (
