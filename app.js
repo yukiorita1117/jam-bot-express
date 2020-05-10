@@ -41,16 +41,17 @@ app.get("/api/weather", function (req, res) {
   // const apikey = process.env.APIKEY;
 
   const baseUrl =
-    "http://api.openweathermap.org/data/2.5/forecast?id=2950159&appid=" +
-    apikey;
+    "http://api.openweathermap.org/data/2.5/forecast" +
+    `?q=Tokyo,jp&APPID=${apikey}`;
 
+  // TODO UnhandledPromiseRejectionWarningが出てるので対処する。
   fetch(baseUrl)
     .then((res) => {
       res.json();
       console.log("中身は？？", res.json());
     })
     .then((data) => {
-      console.log("dataの中身は？", data);
+      console.log("dataの中身は？", { data });
       res.send({ data });
     })
     .catch((err) => {
