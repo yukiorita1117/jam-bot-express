@@ -79,6 +79,19 @@ app.post("/", function (req, res) {
     });
   }
 
+  // whether method
+  if (
+    !req.body.event.bot_id &&
+    req.body.event.text.indexOf("今日の天気") != -1
+  ) {
+    messageCounter = 1;
+    web.chat.postMessage({
+      as_user: true,
+      channel: req.body.event.channel,
+      text: `<@${req.body.event.user}> 今日の天気は〜`,
+    });
+  }
+
   // reply question message
   if (!req.body.event.bot_id) {
     if (
