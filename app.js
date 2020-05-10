@@ -45,6 +45,8 @@ app.get("/api/weather", function (req, res) {
     `?q=Tokyo,jp&APPID=${apikey}`;
 
   // TODO UnhandledPromiseRejectionWarningが出てるので対処する。
+  // fetchの公式で使い方調べる
+  // async awaitを使ってない時に出るエラー
   fetch(baseUrl)
     .then((res) => {
       res.json();
