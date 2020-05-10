@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 let messageCounter = 0;
 
 // whether method middleware
-app.post("/", function (req, res) {});
+app.post("/api/weather", function (req, res) {});
 
 // slack bot middleware
 app.post("/", function (req, res) {
