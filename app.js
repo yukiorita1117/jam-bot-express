@@ -1,6 +1,7 @@
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
+const fetch = require("node-fetch");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { WebClient } = require("@slack/web-api");
@@ -35,7 +36,7 @@ app.use(bodyParser.json());
 let messageCounter = 0;
 
 // whether method middleware
-app.post("/api/weather", function (req, res) {
+app.get("/api/weather", function (req, res) {
   // TODO 最終的にはこのように書く
   // const apikey = process.env.APIKEY;
 
@@ -44,7 +45,10 @@ app.post("/api/weather", function (req, res) {
     apikey;
 
   fetch(baseUrl)
-    .then((res) => res.json())
+    .then((res) => {
+      res.json();
+      console.log("中身は？？", res.json());
+    })
     .then((data) => {
       console.log("dataの中身は？", data);
       res.send({ data });
