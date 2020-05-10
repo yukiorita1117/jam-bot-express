@@ -35,7 +35,24 @@ app.use(bodyParser.json());
 let messageCounter = 0;
 
 // whether method middleware
-app.post("/api/weather", function (req, res) {});
+app.post("/api/weather", function (req, res) {
+  // TODO 最終的にはこのように書く
+  // const apikey = process.env.APIKEY;
+
+  const baseUrl =
+    "http://api.openweathermap.org/data/2.5/forecast?id=2950159&appid=" +
+    apikey;
+
+  fetch(baseUrl)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("dataの中身は？", data);
+      res.send({ data });
+    })
+    .catch((err) => {
+      res.redirect("/error");
+    });
+});
 
 // slack bot middleware
 app.post("/", function (req, res) {
