@@ -72,6 +72,9 @@ app.post("/", function (req, res) {
   res.status(200).end();
 
   console.log(req.body.event);
+  // TODO 入力値のログ 実装後に削除する
+  console.log("入力値は？？", req.body.event.text);
+
   // 100文字以上のmessageイベントにリプライ
   if (!req.body.event.bot_id && [...req.body.event.text].length >= 100) {
     messageCounter = 1;
@@ -82,9 +85,6 @@ app.post("/", function (req, res) {
       text: `<@${req.body.event.user}> めっちゃ早口で言ってそう`,
     });
   }
-
-  // TODO 入力値のログ 実装後に削除する
-  console.log("入力値は？？", req.body.event.text);
 
   // Good Morning Event
   if (!req.body.event.bot_id && req.body.event.text.indexOf("おはよう") != -1) {
