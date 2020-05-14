@@ -141,7 +141,7 @@ app.post("/", function (req, res) {
       as_user: true,
       channel: req.body.event.channel,
       // image path かいてみる
-      text: `<@${req.body.event.user}> ここにpathかいてみる`,
+      text: `<@${req.body.event.user}> ここにpathかく`,
     });
   }
 
