@@ -47,19 +47,18 @@ app.use("/api/weather", function (req, res) {
     "http://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=" +
     `${APIKEY}`;
 
-  const location = "Tokyo";
-  const units = "metric";
-
-  const baseUrl =
-    "http://api.openweathermap.org/data/2.5/weather?id=2172797" +
-    "&appid=" +
-    APIKEY;
+  // const baseUrl =
+  //   "http://api.openweathermap.org/data/2.5/weather?id=2172797" +
+  //   "&appid=" +
+  //   APIKEY;
 
   axios.get(tmpUrl).then(function (res) {
-    // handle success
     console.log("ステータスコード", res.status);
     console.log(res.data);
     res.send(res.data);
+
+    // res.data.weather[0].main が天気の文字列
+    // 雨 なら Rain で表示されるのでserver内で変換処理を作る。
   });
 });
 
