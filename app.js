@@ -21,9 +21,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // dotenv 確認
-// require("dotenv").config();
+require("dotenv").config();
 const env = process.env;
-// console.log(env.SLACK_TOKEN);
+console.log(env.SLACK_TOKEN);
+console.log(env.APIKEY);
+// env SLACK_TOKEN=xoxb-922333071955-1124566819648-yhtUg45tiWNqyBZF0RcXBlwt node app.js
+// env APIKEY＝9fb897574d903e6f4450285faf6e247c node app.js
 
 // bodyParser 追加
 const bodyParser = require("body-parser");
@@ -34,11 +37,15 @@ const web = new WebClient(token);
 app.use(bodyParser.json());
 
 let messageCounter = 0;
+let todayWeather = "取得失敗";
 
 // whether method middleware
 app.use("/api/weather", function (req, res) {
   // TODO 最終的にはこのように書く
-  // const APIKEY = process.env.APIKEY;
+  const APIKEY = process.env.APIKEY;
+  const tmpUrl =
+    "http://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=" +
+    `${APIKEY}`;
 
   const location = "Tokyo";
   const units = "metric";
@@ -102,17 +109,17 @@ app.post("/", function (req, res) {
   }
 
   // whether method
-  // if (
-  //   !req.body.event.bot_id &&
-  //   req.body.event.text.indexOf("今日の天気") != -1
-  // ) {
-  //   messageCounter = 1;
-  //   web.chat.postMessage({
-  //     as_user: true,
-  //     channel: req.body.event.channel,
-  //     text: `<@${req.body.event.user}> 今日の天気は〜`,
-  //   });
-  // }
+  if (
+    !req.body.event.bot_id &&
+    req.body.event.text.indexOf("今日の天気") != -1
+  ) {
+    messageCounter = 1;
+    web.chat.postMessage({
+      as_user: true,
+      channel: req.body.event.channel,
+      text: `<@${req.body.event.user}> 今日の天気は${todayWeather}`,
+    });
+  }
 
   // reply question message
   if (!req.body.event.bot_id) {

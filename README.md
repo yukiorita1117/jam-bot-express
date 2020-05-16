@@ -6,4 +6,5 @@ slack bot を作成する。
 
 ```
 env SLACK_TOKEN=[hogefugapoyo] node app.js
+env APIKEY=[hogefugapoyo] node app.js
 ```
