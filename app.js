@@ -36,30 +36,31 @@ app.use(bodyParser.json());
 let messageCounter = 0;
 
 // whether method middleware
-app.get("/api/weather", function (req, res) {
-  // TODO 最終的にはこのように書く
-  // const apikey = process.env.APIKEY;
+// app.get("/api/weather", function (req, res) {
 
-  const baseUrl =
-    "http://api.openweathermap.org/data/2.5/forecast" +
-    `?q=Tokyo,jp&APPID=${apikey}`;
+//   // TODO 最終的にはこのように書く
+//   // const apikey = process.env.APIKEY;
 
-  // TODO UnhandledPromiseRejectionWarningが出てるので対処する。
-  // fetchの公式で使い方調べる
-  // async awaitを使ってない時に出るエラー
-  fetch(baseUrl)
-    .then((res) => {
-      res.json();
-      console.log("中身は？？", res.json());
-    })
-    .then((data) => {
-      console.log("dataの中身は？", { data });
-      res.send({ data });
-    })
-    .catch((err) => {
-      res.redirect("/error");
-    });
-});
+//   const baseUrl =
+//     "http://api.openweathermap.org/data/2.5/forecast" +
+//     `?q=Tokyo,jp&APPID=${apikey}`;
+
+//   // TODO UnhandledPromiseRejectionWarningが出てるので対処する。
+//   // fetchの公式で使い方調べる
+//   // async awaitを使ってない時に出るエラー
+//   fetch(baseUrl)
+//     .then((res) => {
+//       res.json();
+//       console.log("中身は？？", res.json());
+//     })
+//     .then((data) => {
+//       console.log("dataの中身は？", { data });
+//       res.send({ data });
+//     })
+//     .catch((err) => {
+//       res.redirect("/error");
+//     });
+// });
 
 // slack bot middleware
 app.post("/", function (req, res) {
@@ -107,17 +108,17 @@ app.post("/", function (req, res) {
   }
 
   // whether method
-  if (
-    !req.body.event.bot_id &&
-    req.body.event.text.indexOf("今日の天気") != -1
-  ) {
-    messageCounter = 1;
-    web.chat.postMessage({
-      as_user: true,
-      channel: req.body.event.channel,
-      text: `<@${req.body.event.user}> 今日の天気は〜`,
-    });
-  }
+  // if (
+  //   !req.body.event.bot_id &&
+  //   req.body.event.text.indexOf("今日の天気") != -1
+  // ) {
+  //   messageCounter = 1;
+  //   web.chat.postMessage({
+  //     as_user: true,
+  //     channel: req.body.event.channel,
+  //     text: `<@${req.body.event.user}> 今日の天気は〜`,
+  //   });
+  // }
 
   // reply question message
   if (!req.body.event.bot_id) {
