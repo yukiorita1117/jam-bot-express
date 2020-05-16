@@ -1,10 +1,10 @@
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
-const fetch = require("node-fetch");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const { WebClient } = require("@slack/web-api");
+const axios = require("axios").default;
 
 var indexRouter = require("./routes/index");
 
@@ -36,31 +36,25 @@ app.use(bodyParser.json());
 let messageCounter = 0;
 
 // whether method middleware
-// app.get("/api/weather", function (req, res) {
+app.use("/api/weather", function (req, res) {
+  // TODO 最終的にはこのように書く
+  // const APIKEY = process.env.APIKEY;
 
-//   // TODO 最終的にはこのように書く
-//   // const apikey = process.env.APIKEY;
+  const location = "Tokyo";
+  const units = "metric";
 
-//   const baseUrl =
-//     "http://api.openweathermap.org/data/2.5/forecast" +
-//     `?q=Tokyo,jp&APPID=${apikey}`;
+  const baseUrl =
+    "http://api.openweathermap.org/data/2.5/weather?id=2172797" +
+    "&appid=" +
+    APIKEY;
 
-//   // TODO UnhandledPromiseRejectionWarningが出てるので対処する。
-//   // fetchの公式で使い方調べる
-//   // async awaitを使ってない時に出るエラー
-//   fetch(baseUrl)
-//     .then((res) => {
-//       res.json();
-//       console.log("中身は？？", res.json());
-//     })
-//     .then((data) => {
-//       console.log("dataの中身は？", { data });
-//       res.send({ data });
-//     })
-//     .catch((err) => {
-//       res.redirect("/error");
-//     });
-// });
+  axios.get(tmpUrl).then(function (res) {
+    // handle success
+    console.log("ステータスコード", res.status);
+    console.log(res.data);
+    res.send(res.data);
+  });
+});
 
 // slack bot middleware
 app.post("/", function (req, res) {
