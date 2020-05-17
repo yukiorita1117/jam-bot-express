@@ -25,8 +25,6 @@ require("dotenv").config();
 const env = process.env;
 console.log(env.SLACK_TOKEN);
 console.log(env.APIKEY);
-// env SLACK_TOKEN=xoxb-922333071955-1124566819648-yhtUg45tiWNqyBZF0RcXBlwt node app.js
-// env APIKEY＝9fb897574d903e6f4450285faf6e247c node app.js
 
 // bodyParser 追加
 const bodyParser = require("body-parser");
