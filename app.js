@@ -71,7 +71,7 @@ app.post("/", function (req, res) {
   res.status(200).end();
 
   console.log(req.body.event);
-  console.log("入力値は？？", req.body.event.text);
+  console.log("入力値:", req.body.event.text);
 
   // 100文字以上のmessageイベントにリプライ
   if (!req.body.event.bot_id && [...req.body.event.text].length >= 100) {
